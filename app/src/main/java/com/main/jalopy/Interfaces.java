@@ -9,7 +9,7 @@ public class Interfaces {
         void updateNodes();
     }
 
-    public interface Broker {
+    public interface Broker extends Node{
         void calculateKey();
         Publisher acceptConnection (Publisher pub);
         Subscriber acceptConnection (Subscriber sub);
@@ -17,14 +17,14 @@ public class Interfaces {
         void pull (Topic t);
     }
 
-    public interface Publisher {
+    public interface Publisher extends Node{
         void getBrokerList();
         Broker hashTopic (Topic t);
         void push (Topic t, Value v);
         void notifyFailure (Broker br);
     }
 
-    public interface Subscriber {
+    public interface Subscriber extends Node{
         void register (Broker br, Topic t);
         void disconnect (Broker br, Topic t);
         void visualiseData (Topic t, Value v);
