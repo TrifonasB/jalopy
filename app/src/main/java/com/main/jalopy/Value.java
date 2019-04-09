@@ -6,9 +6,9 @@ public class Value implements Interfaces.Value {
     private double latitude;
     private double longitude;
 
-    Value (Bus bus, double latitute, double longitude){
+    Value (Bus bus, double latitude, double longitude){
         this.bus = bus;
-        this.latitude = latitute;
+        this.latitude = latitude;
         this.longitude = longitude;
     }
 

@@ -1,7 +1,12 @@
 package com.main.jalopy;
 
-public class Broker implements Interfaces.Broker {
 
+public class Broker extends Node implements Interfaces.Broker {
+
+    Broker(String inetName, int portNumber){
+        this.openServer(portNumber);
+        this.startClient(inetName, portNumber);
+    }
 
     @Override
     public void calculateKey() {

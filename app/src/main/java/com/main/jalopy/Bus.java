@@ -4,15 +4,15 @@ public class Bus {
 
     private String lineNumber;
     private String routeCode;
-    private String vehicled;
+    private String vehicleId;
     private String lineName;
     private String busLineId;
     private String info;
 
-    Bus (String lineNumber, String routeCode, String vehicled, String lineName, String busLineId, String info){
+    Bus (String lineNumber, String routeCode, String vehicleId, String lineName, String busLineId, String info){
         this.lineNumber = lineNumber;
         this.routeCode = routeCode;
-        this.vehicled = vehicled;
+        this.vehicleId = vehicleId;
         this.lineName = lineName;
         this.busLineId = busLineId;
         this.info = info;
@@ -35,11 +35,11 @@ public class Bus {
     }
 
     public String getVehicled() {
-        return vehicled;
+        return vehicleId;
     }
 
     public void setVehicled(String vehicled) {
-        this.vehicled = vehicled;
+        this.vehicleId = vehicled;
     }
 
     public String getLineName() {
