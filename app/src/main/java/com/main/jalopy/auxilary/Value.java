@@ -1,4 +1,6 @@
-package com.main.jalopy;
+package com.main.jalopy.auxilary;
+
+import com.main.jalopy.frame.Interfaces;
 
 public class Value implements Interfaces.Value {
 

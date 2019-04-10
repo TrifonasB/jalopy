@@ -1,4 +1,4 @@
-package com.main.jalopy;
+package com.main.jalopy.frame;
 
 public class Interfaces {
 

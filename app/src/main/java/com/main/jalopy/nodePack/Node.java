@@ -1,12 +1,6 @@
-package com.main.jalopy;
+package com.main.jalopy.nodePack;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import com.main.jalopy.frame.Interfaces;
 
 public abstract class Node implements Interfaces.Node {
     @Override
@@ -28,10 +22,6 @@ public abstract class Node implements Interfaces.Node {
     public void updateNodes() {
 
     }
-
-    public abstract void startClient(String inetName, int portNumber);
-
-    public abstract void openServer(int portNumber);
 
 }
 

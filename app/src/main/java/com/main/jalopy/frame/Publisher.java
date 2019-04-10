@@ -1,23 +1,45 @@
-package com.main.jalopy;
+package com.main.jalopy.frame;
 
+import com.main.jalopy.nodePack.NodeClient;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Publisher extends Node implements Interfaces.Publisher {
+public class Publisher extends NodeClient implements Interfaces.Publisher {
 
     Publisher (String inetName, int portNumber){
         startClient(inetName, portNumber);
     }
 
-    @Override
-    public void startClient (String inetName, int portNumber){
 
+    @Override
+    public String readFromServer() {
+        String message = "";
+        try{
+            message = (String) getInputStream().readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return  message;
     }
+
+    @Override
+    public void sendToServer(String message) {
+        try{
+            this.getOutputStream().writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     public void getBrokerList() {
