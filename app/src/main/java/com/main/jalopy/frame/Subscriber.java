@@ -1,51 +1,39 @@
 package com.main.jalopy.frame;
 
-import com.main.jalopy.nodePack.NodeClient;
+import com.main.jalopy.frame.Interfaces.Node;
 import java.io.IOException;
 
-public class Subscriber extends NodeClient implements Interfaces.Subscriber {
+public class Subscriber implements Interfaces.Node {
 
-    Subscriber (String inetName, int portNumber){
-        this.startClient(inetName, portNumber);
+    public Subscriber(){};
+    public Subscriber (String inetName, int portNumber) {
     }
 
-    @Override
-    public String readFromServer () {
-        String message = "";
-        try{
-            message = (String) getInputStream().readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return  message;
-    }
-
-    @Override
-    public void sendToServer(String message) {
-        try{
-            this.getOutputStream().writeObject(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    @Override
     public void register(Interfaces.Broker br, Interfaces.Topic t) {
 
     }
 
-    @Override
-    public void disconnect(Interfaces.Broker br, Interfaces.Topic t) {
+    public void visualiseData(Interfaces.Topic t, Interfaces.Value v) {
 
     }
 
     @Override
-    public void visualiseData(Interfaces.Topic t, Interfaces.Value v) {
+    public void init(int x) {
+
+    }
+
+    @Override
+    public void connect() {
+
+    }
+
+    @Override
+    public void disconnect() {
+
+    }
+
+    @Override
+    public void updateNodes() {
 
     }
 }

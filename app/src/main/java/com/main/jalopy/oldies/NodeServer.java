@@ -1,4 +1,6 @@
-package com.main.jalopy.nodePack;
+package com.main.jalopy.oldies;
+
+import com.main.jalopy.nodePack.Node;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,15 +16,20 @@ public abstract class NodeServer extends Node {
     private ObjectInputStream inputStream = null;
 
     public void openServer(int portNumber){
+        System.out.println("1.1.1       (aka openServer)");
 
         try{
             providerSocket = new ServerSocket(portNumber);
+            connection = providerSocket.accept();
             outputStream = new ObjectOutputStream(connection.getOutputStream());
             inputStream = new ObjectInputStream(connection.getInputStream());
+            System.out.println("1.1.2       (aka in the try)");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("1.1.3       (aka finished)");
+
     }
 
 

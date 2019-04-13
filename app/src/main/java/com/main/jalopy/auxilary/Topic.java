@@ -5,16 +5,14 @@ import com.main.jalopy.frame.Interfaces;
 public class Topic implements Interfaces.Topic {
 
     private String busLine;
+    //private Bus bus;
 
-    Topic (String busLine){
-        this.busLine = busLine;
-    }
+    public Topic(String busLine) { this.busLine = busLine; }
 
-    public void setBusLine (String busLine){
-        this.busLine = busLine;
-    }
+    public void setBusLine(String busLine) { this.busLine = busLine; }
 
-    public String getBusLine () {
+    public String getBusLine() {
         return busLine;
     }
+
 }

@@ -1,4 +1,6 @@
-package com.main.jalopy.nodePack;
+package com.main.jalopy.oldies;
+
+import com.main.jalopy.nodePack.Node;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
