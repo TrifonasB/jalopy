@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Jalopy</string>
+    <string name="google_maps_key">AIzaSyCSWDmlByvcwtwWo6nmR9-ScCfDvA_hR0s</string>
     <string-array name="busLines">
         <item>021</item>
         <item>022</item>

@@ -1,16 +1,26 @@
 package com.main.jalopy;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.main.jalopy.Infra.Hashing;
 import com.main.jalopy.Infra.NodeInfo;
 import com.main.jalopy.Infra.Topic;
@@ -27,12 +37,13 @@ import java.util.Map;
 import static com.main.jalopy.Infra.Node.b;
 import static com.main.jalopy.Infra.Node.info;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Spinner toSend;
     private TextView update;
     private TextView update2;
 
     private Button btnConnect;
+    private GoogleMap mMap;
 
     private HashMap<Integer, NodeInfo> brokerTopics;
     private Map<String,Boolean> currentlySubscribed;
@@ -40,11 +51,30 @@ public class MainActivity extends AppCompatActivity {
 
     private int upCount = 1;
 
+    private static final String TAG = "MainActivity";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+
+    @Override
+    public void onMapReady(GoogleMap googleMap){
+        Toast.makeText(this, "Map is ready!", Toast.LENGTH_SHORT).show();
+        mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
+        LatLng athens = new LatLng(37.994129, 23.731960);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(athens));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_client);
 
+        if(!checkServices()){
+            Toast.makeText(this, "something is wrong with the Google services on your device", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        initMap();
         currentlySubscribed = new HashMap<>();
         initializeData();
 
@@ -59,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
         update.setTextSize(10);
         update2.setTextSize(10);
         btnConnect = ((Button) findViewById(R.id.btnConnect));
-
-
         btnConnect.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TA UPCOUNT KAI COUNT EINAI MONO GIA DEBUGGING - TAUTOXRONA UPDATES APO 2 BROKERS GIA 2 TOPICS
@@ -75,10 +103,27 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
+    private void initMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(MainActivity.this);
+    }
+
+    public boolean checkServices () {
+        Log.d(TAG, "checkServices: checking google services version");
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+        if (available== ConnectionResult.SUCCESS){
+            Log.d(TAG, "checkServices: google services working");
+            return true;
+        }else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d(TAG, "checkServices: error occured, follow the steps");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
+        }else{
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+    }
 
     private void errorMessage(String message){
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -92,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         alert.show();
     }
-
 
     private class AsyncTaskReceiver extends AsyncTask<String, String, Integer> {
         private String resp;
@@ -290,6 +334,5 @@ public class MainActivity extends AppCompatActivity {
         currentlySubscribed.put("1",false);
         currentlySubscribed.put("10",false);
     }
-
 
 }
