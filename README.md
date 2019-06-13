@@ -7,4 +7,4 @@ achilleaseco
 pnkar
 
 
-on Android Studio
+This is an android application build with AndroidStudio. Using the publisher/subscriber model, it depicts the positions of public transport over a map.
